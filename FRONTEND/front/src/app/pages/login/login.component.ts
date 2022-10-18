@@ -1,4 +1,7 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -7,8 +10,73 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  loginData = {
+    username: '',
+    password: '',
+  }
+  constructor(private snack: MatSnackBar, private login: LoginService) { }
+  formSubmit() {
+    console.log("working");
 
+    console.log(this.loginData);
+    if (this.loginData.username.trim() == '') {
+      this.snack.open('Username is required', '', { duration: 3000, });
+      return;
+    }
+    if (this.loginData.password.trim() == '') {
+      this.snack.open('Password is required', '', { duration: 3000, });
+      return;
+    }
+    //request to server to generate token
+    this.login.generateToken(this.loginData).subscribe(
+      (data: any) => {
+        console.log("sucess");
+        console.log("token data"+data);
+
+        //login user and set token in local...
+        this.login.loginUser(data.token);
+        //getting current user details
+        this.login.getCurrentUser().subscribe(
+          (user:any)=>{
+            this.login.setUser(user);
+            console.log("printing user details"+user);
+           
+           
+           
+            //redirect ...admin:--admin dashboard
+            //redirect ...user:--user dashboard
+            if(this.login.getUserRole()=="Admin")
+            {
+              //redirect to admin dashboard
+              window.location.href='/admin'
+            }
+
+            else if(this.login.getUserRole()=="Normal"){
+              //redirect to user dashboard
+              window.location.href='/user-dashboard'
+              
+            }
+            else{
+              this.login.logout();
+              location.reload();
+            }
+
+          }
+        );
+      },
+
+
+      //error message if error
+      (error) => {
+        console.log('error');
+        console.log(error);
+this.snack.open("invalid details  !! try again",'',{
+  duration:3000,
+});
+
+      }
+    )
+  }
   ngOnInit(): void {
   }
 

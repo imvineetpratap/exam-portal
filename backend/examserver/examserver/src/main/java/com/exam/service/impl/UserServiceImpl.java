@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 			for(UserRole ur:userRole) {
 				roleRepository.save(ur.getRole());
 			}
-			user.getUserRole().addAll(userRole);
+			user.getUserRoles().addAll(userRole);
 			local=this.userRepository.save(user);
 				
 		}catch(Exception e) {

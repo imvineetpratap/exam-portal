@@ -26,14 +26,14 @@ public class ExamserverApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("Starting code");
+//		System.out.println("Starting code");
 //		User user = new User();
 //		user.setFirstname("vineet");
 //		user.setLastname("singh");
 //		user.setUsername("vps12");
 //		user.setPassword("1234");
 //		user.setPhone("9696986596");
-//		user.setEmail("vs67134@gmail.com");
+//		user.setEmail("vs67134@outlook.com");
 //		user.setProfile("default.png");
 //		Role role1 = new Role();
 //		role1.setRoleId(44L);
