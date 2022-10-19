@@ -1,6 +1,8 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -10,11 +12,14 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class LoginComponent implements OnInit {
 
+
+  // public loginStatusSubject=new Subject<boolean>();
+
   loginData = {
     username: '',
     password: '',
   }
-  constructor(private snack: MatSnackBar, private login: LoginService) { }
+  constructor(private snack: MatSnackBar, private login: LoginService,private router:Router) { }
   formSubmit() {
     console.log("working");
 
@@ -48,13 +53,16 @@ export class LoginComponent implements OnInit {
             if(this.login.getUserRole()=="Admin")
             {
               //redirect to admin dashboard
-              window.location.href='/admin'
+              // window.location.href='/admin'
+              this.router.navigate(['admin']);
+              this.login.loginStatusSubject.next(true);
             }
 
             else if(this.login.getUserRole()=="Normal"){
               //redirect to user dashboard
-              window.location.href='/user-dashboard'
-              
+              // window.location.href='/user-dashboard'
+              this.router.navigate(['user-dashboard']);
+              this.login.loginStatusSubject.next(true);
             }
             else{
               this.login.logout();

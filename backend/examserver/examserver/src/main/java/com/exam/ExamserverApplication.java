@@ -3,6 +3,7 @@ package com.exam;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.exam.helper.UserFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,12 +13,15 @@ import com.exam.model.Role;
 import com.exam.model.User;
 import com.exam.model.UserRole;
 import com.exam.service.UserService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class ExamserverApplication implements CommandLineRunner {
 
 	@Autowired
 	private UserService userService;
+@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(ExamserverApplication.class, args);
@@ -26,12 +30,15 @@ public class ExamserverApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-//		System.out.println("Starting code");
+	System.out.println("Starting code");
+//	try{
+
+
 //		User user = new User();
 //		user.setFirstname("vineet");
 //		user.setLastname("singh");
 //		user.setUsername("vps12");
-//		user.setPassword("1234");
+//		user.setPassword(this.bCryptPasswordEncoder.encode("1234"));
 //		user.setPhone("9696986596");
 //		user.setEmail("vs67134@outlook.com");
 //		user.setProfile("default.png");
@@ -44,7 +51,11 @@ public class ExamserverApplication implements CommandLineRunner {
 //		userRole.setUser(user);
 //		userRoleSet.add(userRole);
 //		User user1 = this.userService.createUser(user, userRoleSet);
-//		System.out.println(user1.getUserRole());
+//		System.out.println(user1.getUsername());
+//	} catch (UserFoundException e) {
+//		throw new RuntimeException(e);
+//	e.printStackTrace();
+//	}
 	}
 
 }

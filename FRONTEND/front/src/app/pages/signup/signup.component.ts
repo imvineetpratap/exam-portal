@@ -52,7 +52,7 @@ this.userService.addUser(this.user).subscribe(
   //error
   console.log(error);
   // alert('something went wrong');
-  this.snack.open("something went wrong",'',{
+  this.snack.open("user with this name already exist",'',{
     duration:2000,
     // verticalPosition:'top',
     // horizontalPosition:'right',

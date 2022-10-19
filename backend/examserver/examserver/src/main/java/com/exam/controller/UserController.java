@@ -3,16 +3,13 @@ package com.exam.controller;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.exam.helper.UserFoundException;
+import com.exam.helper.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 
 import com.exam.model.Role;
 import com.exam.model.User;
@@ -27,10 +24,15 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	//creating user
 	@PostMapping("/")
 	public User createUser(@RequestBody User user) throws Exception {
 		user.setProfile("default.png");
+		
+		//password encoding with bcrypt password encoder
+		user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
 		Set<UserRole> roles=new HashSet<>();
 		Role role=new Role();
 		role.setRoleId(45L);
@@ -61,9 +63,9 @@ public class UserController {
 	//update
 	
 	
-//	@ExceptionHandler(UserNotFoundException.class)
-//	public ResponseEntity<?> exceptionHandler(UserNotFoundException ex){
-//		return response;
+//	@ExceptionHandler(UserFoundException.class)
+//	public ResponseEntity<?> exceptionHandler(UserFoundException ex){
+//		return ResponseEntity.;
 //	}
-	
+//
 }

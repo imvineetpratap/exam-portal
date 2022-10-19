@@ -37,12 +37,14 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 
 	@Bean
-//	public BCryptPasswordEncoder passwordEncoder() {
-//		return new BCryptPasswordEncoder();
+	
+	//this function doesnot encrypt password and allow to use raw password
+//	public PasswordEncoder passwordEncoder() {
+//		return NoOpPasswordEncoder.getInstance();
 //	}
-	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
+	public BCryptPasswordEncoder passwordEncoder() {
+	return new BCryptPasswordEncoder();
+}
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub

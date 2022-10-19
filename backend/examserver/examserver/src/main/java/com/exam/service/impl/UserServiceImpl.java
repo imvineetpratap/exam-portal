@@ -2,6 +2,7 @@ package com.exam.service.impl;
 
 import java.util.Set;
 
+import com.exam.helper.UserFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -34,15 +35,19 @@ public class UserServiceImpl implements UserService {
 			
 			if(local!=null) {
 				System.out.println("user is already there!!");
-				throw new Exception("User Already present Exception!!");
+//				throw new Exception("User Already present Exception!!");
+				throw new UserFoundException();
 			}
+
+			else{
+
 			
 			for(UserRole ur:userRole) {
 				roleRepository.save(ur.getRole());
 			}
 			user.getUserRoles().addAll(userRole);
 			local=this.userRepository.save(user);
-				
+			}
 		}catch(Exception e) {
 			throw new ResponseStatusException(HttpStatus.BAD_GATEWAY,"User Already Exists");
 			
