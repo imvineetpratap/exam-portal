@@ -1,0 +1,22 @@
+.profile-image{
+    max-width: 150px;
+    max-height: 150px;
+    border: 2px solid #3f51b5;
+    border-radius: 50%;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 20px 50px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
