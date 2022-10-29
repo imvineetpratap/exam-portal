@@ -21,9 +21,9 @@ export class LoginComponent implements OnInit {
   }
   constructor(private snack: MatSnackBar, private login: LoginService,private router:Router) { }
   formSubmit() {
-    console.log("working");
+    // console.log("working");
 
-    console.log(this.loginData);
+    // console.log(this.loginData);
     if (this.loginData.username.trim() == '') {
       this.snack.open('Username is required', '', { duration: 3000, });
       return;
@@ -35,19 +35,14 @@ export class LoginComponent implements OnInit {
     //request to server to generate token
     this.login.generateToken(this.loginData).subscribe(
       (data: any) => {
-        console.log("sucess");
-        console.log("token data"+data);
-
+        console.log("sucessfully login");
+        this.snack.open('Sucessfully login', '', { duration: 3000, });
         //login user and set token in local...
         this.login.loginUser(data.token);
         //getting current user details
         this.login.getCurrentUser().subscribe(
           (user:any)=>{
             this.login.setUser(user);
-            console.log("printing user details"+user);
-           
-           
-           
             //redirect ...admin:--admin dashboard
             //redirect ...user:--user dashboard
             if(this.login.getUserRole()=="Admin")

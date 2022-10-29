@@ -1,3 +1,6 @@
+import { ViewQuizzesComponent } from './pages/admin/view-quizzes/view-quizzes.component';
+import { AddCategoryComponent } from './pages/admin/add-category/add-category.component';
+import { ViewCategoriesComponent } from './pages/admin/view-categories/view-categories.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
@@ -9,6 +12,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboard.component';
 import { AdminGuard } from './services/admin.guard';
 import { NormalGuard } from './services/normal.guard';
+import { AddQuizComponent } from './pages/admin/add-quiz/add-quiz.component';
 
 const routes: Routes = [
 
@@ -44,7 +48,22 @@ children:[
     path:'profile',
     component:ProfileComponent,
   },
- 
+  {
+    path:'categories',
+    component:ViewCategoriesComponent,
+  },
+  {
+    path:'add-category',
+    component:AddCategoryComponent,
+  },
+  {
+    path:'quizzes',
+    component:ViewQuizzesComponent,
+  },
+  {
+    path:'add-quiz',
+    component:AddQuizComponent,
+  },
 ]
 
 

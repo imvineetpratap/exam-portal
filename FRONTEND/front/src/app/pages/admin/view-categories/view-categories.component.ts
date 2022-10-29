@@ -1,3 +1,6 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+//  import { Swal } from 'sweetalert2';
+import { CategoryService } from './../../../services/category.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewCategoriesComponent implements OnInit {
 
-  constructor() { }
+  categories=[]
+  constructor(private _category:CategoryService,private snack: MatSnackBar) { }
 
   ngOnInit(): void {
+    this._category.categories().subscribe((data:any)=>{
+    this.categories=data;
+    console.log(this.categories);
+  },
+  (error)=>{
+    console.log(error);
+    // Swal.fire("Error !!","Error in loading date",'error');
+    this.snack.open('error', '', { duration: 3000, });
+  }
+    )
   }
 
 }

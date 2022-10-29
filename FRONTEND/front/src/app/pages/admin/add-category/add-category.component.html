@@ -1,1 +1,50 @@
-<p>add-category works!</p>
+<mat-card>
+  <h1>Add New Category</h1>
+  <mat-card-content>
+    <div class="bootstrap-wrapper">
+      <div class="container">
+        <!-- <h1>Welcome to Examportal!!!!</h1> -->
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <form (ngSubmit)="Add_New_Category_Data()">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Title</mat-label>
+                <input
+                autofocus
+                [(ngModel)]="category.title"
+                  required
+                  name="title"
+                  matInput
+                  placeholder="Enter here"
+                />
+
+              </mat-form-field>
+
+
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea
+                  required
+                  [(ngModel)]="category.description"
+                  name="description"
+                  matInput
+                  placeholder="Enter here"
+                  rows="15"
+                ></textarea>
+
+              </mat-form-field>
+
+<div class="container text-center">
+
+  <button mat-raised-button color="accent" class="text-center" type="submit">Add New Category</button>
+</div>
+
+            </form>
+
+            {{category| json}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
