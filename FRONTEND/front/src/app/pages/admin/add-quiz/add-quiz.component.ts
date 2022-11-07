@@ -70,17 +70,14 @@ return;
 this._quizData.addQuiz(this.quiz).subscribe(
 (data)=>{
 Swal.fire("Sucsess!!", "Quiz added sucessfully",'success');
+this.quiz=null;
+
 },
 (error)=>{
 
   console.log(error);
   Swal.fire("opps!!", "internal server error",'error');
-
-
-
-
 }
-
 
 
 )

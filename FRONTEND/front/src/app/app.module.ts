@@ -30,7 +30,16 @@ import { AddCategoryComponent } from './pages/admin/add-category/add-category.co
 import { AddQuizComponent } from './pages/admin/add-quiz/add-quiz.component';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatSelectModule} from '@angular/material/select';
-
+import { UpdateQuizComponent } from './pages/admin/update-quiz/update-quiz.component';
+import { ViewQuizQuestionsComponent } from './pages/admin/view-quiz-questions/view-quiz-questions.component';
+import { AddQuestionComponent } from './pages/admin/add-question/add-question.component';
+import { UpdateQuestionComponent } from './pages/admin/update-question/update-question.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { UserSidebarComponent } from './pages/user/user-sidebar/user-sidebar.component';
+import { CategoriesComponent } from './pages/user/categories/categories.component';
+import { LoadQuizComponent } from './pages/user/load-quiz/load-quiz.component';
+import { PreQuizInstructionsComponent } from './pages/user/pre-quiz-instructions/pre-quiz-instructions.component';
+import { AllquizzesComponent } from './pages/user/allquizzes/allquizzes.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +55,16 @@ import {MatSelectModule} from '@angular/material/select';
     ViewCategoriesComponent,
     AddCategoryComponent,
     ViewQuizzesComponent,
-    AddQuizComponent
+    AddQuizComponent,
+    UpdateQuizComponent,
+    ViewQuizQuestionsComponent,
+    AddQuestionComponent,
+    UpdateQuestionComponent,
+    UserSidebarComponent,
+    CategoriesComponent,
+    LoadQuizComponent,
+    PreQuizInstructionsComponent,
+    AllquizzesComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +82,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatListModule,
     MatTableModule,
     MatSlideToggleModule,
-    MatSelectModule
+    MatSelectModule,
+    CKEditorModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

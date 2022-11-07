@@ -1,0 +1,17 @@
+.truncate{
+  display: block;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.example-header-image {
+  background-image: url(../../../../assets/exam-icon.png);
+  background-size: cover;
+}
+.mb-5{
+  margin-bottom: 10px;
+}
+.p-0{
+  padding: 0;
+}

@@ -32,7 +32,7 @@ public class QuestionController {
         return ResponseEntity.ok(this.questionService.updateQuestion(question));
     }
 
-    //get all questions of any quiz
+    //get total number of quiz allowed questions of any quiz
     @GetMapping("/quiz/{qid}")
     public ResponseEntity<?> getQuestionsOfQuiz(@PathVariable("qid") Long qid) {
         //we have only id of quiz
@@ -45,14 +45,25 @@ public class QuestionController {
         Set<Question> questions = quiz.getQuestions();
         List list = new ArrayList(questions);
         //checking max number of questions if more than that than returning a sublist
-        if (list.size() > Integer.parseInt(quiz.getNumberOfQuestion())) ;
-        {
-            list = list.subList(0, Integer.parseInt(quiz.getNumberOfQuestion() + 1));
-        }
+//       System.out.println("total number of questions"+quiz.getNumberOfQuestion());
+       if (list.size() > Integer.parseInt(quiz.getNumberOfQuestion()))
+       {
+           list = list.subList(0, Integer.parseInt(quiz.getNumberOfQuestion() + 1));
+       }
         Collections.shuffle(list);
         return ResponseEntity.ok(list);
-
     }
+
+//get all questions at admin end
+    @GetMapping("/quiz/all/{qid}")
+    public ResponseEntity<?> getQuestionsOfQuizAdmin(@PathVariable("qid") Long qid) {
+//        we have only id of quiz
+       Quiz quiz= new Quiz();
+       quiz.setQid(qid);
+       Set<Question> questionsOfQuiz=this.questionService.getQuestionsOfQuiz(quiz);
+       return ResponseEntity.ok(questionsOfQuiz);
+    }
+
 
     //get single question
     @GetMapping("/{quesId}")

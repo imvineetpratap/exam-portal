@@ -1,3 +1,10 @@
+import { AllquizzesComponent } from './pages/user/allquizzes/allquizzes.component';
+import { PreQuizInstructionsComponent } from './pages/user/pre-quiz-instructions/pre-quiz-instructions.component';
+import { LoadQuizComponent } from './pages/user/load-quiz/load-quiz.component';
+import { UpdateQuestionComponent } from './pages/admin/update-question/update-question.component';
+import { AddQuestionComponent } from './pages/admin/add-question/add-question.component';
+import { ViewQuizQuestionsComponent } from './pages/admin/view-quiz-questions/view-quiz-questions.component';
+import { UpdateQuizComponent } from './pages/admin/update-quiz/update-quiz.component';
 import { ViewQuizzesComponent } from './pages/admin/view-quizzes/view-quizzes.component';
 import { AddCategoryComponent } from './pages/admin/add-category/add-category.component';
 import { ViewCategoriesComponent } from './pages/admin/view-categories/view-categories.component';
@@ -13,6 +20,7 @@ import { UserDashboardComponent } from './pages/user/user-dashboard/user-dashboa
 import { AdminGuard } from './services/admin.guard';
 import { NormalGuard } from './services/normal.guard';
 import { AddQuizComponent } from './pages/admin/add-quiz/add-quiz.component';
+import { CategoriesComponent } from './pages/user/categories/categories.component';
 
 const routes: Routes = [
 
@@ -63,6 +71,21 @@ children:[
   {
     path:'add-quiz',
     component:AddQuizComponent,
+  },{
+    path:'update-quiz/:qId',
+    component:UpdateQuizComponent,
+  },
+  {
+    path:'view-questions/:id/:title',
+    component:ViewQuizQuestionsComponent,
+  },
+  {
+    path:'add-question/:qid/:title',
+    component:AddQuestionComponent,
+  },
+  {
+    path:'update-question/:questionId/:quizTitle',
+    component:UpdateQuestionComponent,
   },
 ]
 
@@ -73,10 +96,36 @@ children:[
 {
   path:'user-dashboard',
   component:UserDashboardComponent,
-  pathMatch:'full',
-  canActivate:[NormalGuard]
-},
+  // pathMatch:'full',
+  canActivate:[NormalGuard],
+  children:[
 
+    {
+      path:'category-wise-quiz',
+      component:CategoriesComponent,
+    },
+    {
+      path:'loadquiz/:catId',
+      component:LoadQuizComponent,
+    },
+    {
+      path:'user-profile',
+      component:ProfileComponent,
+    },
+    {
+      path:'instructions/:qid',
+      component:PreQuizInstructionsComponent,
+    },
+
+
+  ]
+
+},
+{
+  path:'start/:qid',
+  component:AllquizzesComponent,
+  canActivate:[NormalGuard],
+}
 
 ];
 

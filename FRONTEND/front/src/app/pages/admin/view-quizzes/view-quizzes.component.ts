@@ -34,6 +34,43 @@ export class ViewQuizzesComponent implements OnInit {
   ];
   constructor(private _quiz:QuizzesService) {}
 
+
+  deleteQuiz(qid){
+    // console.log('working');
+    // console.log(qid);
+
+    Swal.fire({
+      icon:'info',
+      title:'are you sure?',
+      confirmButtonText:'Delete',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      showCancelButton:true,
+    }).then((result)=>{
+if(result.isConfirmed)
+{
+  //delete
+
+
+  this._quiz.deleteQuiz(qid).subscribe(
+    (data:any)=>{
+      //filtering deleted quizes
+    this.quizzes=this.quizzes.filter((quiz)=>quiz.qid!=qid)
+    Swal.fire('Success!!','Quiz Deleted Sucessfully','success')
+    },
+    (error)=>{
+      Swal.fire('Error!!','Error in deleting quiz','error')
+    }
+
+    )
+}
+
+    })
+
+  }
+
+
+
   ngOnInit() {
     this._quiz.quizzes().subscribe(
 (data:any)=>{

@@ -1,0 +1,20 @@
+
+<h1 class="ml-20">All catogories of Quizzes</h1>
+  <mat-card [routerLink]="'/user-dashboard/loadquiz/'+c.cid" class="example-card w-30 inline-block mt-20 mr-10 ml-10" *ngFor="let c of categorieshere">
+    <mat-card-title >{{c.title}}</mat-card-title>
+
+    <mat-card-content>
+      <p>{{c.description}}</p>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button></button>
+      <button mat-button></button>
+    </mat-card-actions>
+  </mat-card>
+
+
+
+
+
+
