@@ -12,9 +12,11 @@ import { LocationStrategy } from '@angular/common';
 export class AllquizzesComponent implements OnInit {
   qidhere;
   questions;
-  marksGot=0;
-  correctAnswers=0;
-  attempted=0;
+  marksGot = 0;
+  correctAnswers = 0;
+  attempted = 0;
+  isSubmit=false;
+  timer:any;
   constructor(
     private _router: ActivatedRoute,
     private locationSt: LocationStrategy,
@@ -30,14 +32,16 @@ export class AllquizzesComponent implements OnInit {
   loadQuestions() {
     this._question.getQuestionsofQuizForTest(this.qidhere).subscribe(
       (data) => {
-         console.log(data);
+        //  console.log(data);
         this.questions = data;
-        this.questions.forEach(q => {
-          q['givenAnswer']='';
+        this.timer=this.questions.length*2*60;
+        this.questions.forEach((q) => {
+          q['givenAnswer'] = '';
         });
+        this.startTimer();
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         Swal.fire('Error', 'error in loading quiz', 'error');
       }
     );
@@ -49,30 +53,61 @@ export class AllquizzesComponent implements OnInit {
     });
   }
 
-  submitQuiz(){
-Swal.fire({
-  title:'do you want to submit the quiz?',
-  showCancelButton:true,
-  confirmButtonText:'submit',
-  denyButtonText:'dont save',
-  icon:'info',
-}).then((e)=>{
-  if (e.isConfirmed) {
-    //calculation
-this.questions.forEach(q => {
-  if(q.givenAnswer==q.answer)
-  {
-    this.correctAnswers++;
-    let marksSingle=this.questions[0].quiz.maxMarks/this.questions.length
-  this.marksGot+=marksSingle;
+  submitQuiz() {
+    Swal.fire({
+      title: 'do you want to submit the quiz?',
+      showCancelButton: true,
+      confirmButtonText: 'submit',
+      denyButtonText: 'dont save',
+      icon: 'info',
+    }).then((e) => {
+      if (e.isConfirmed)
+      {
+        this.evalQuiz();
+      }
+    });
   }
 
-});
+
+
+  startTimer(){
+   let t= window.setInterval(()=>{
+      //code
+      if(this.timer<=0)
+      {
+        this.evalQuiz()
+        clearInterval(t);
+      }else{
+        this.timer--;
+      }
+    },1000)
   }
-} )
+  getFormattedTime(){
+    let mm=Math.floor(this.timer/60)
+    let ss= this.timer- mm*60
+    return `${mm} min : ${ss} sec`
+  }
 
 
+  evalQuiz(){
+    {
+      this.isSubmit=true;
+      //calculation
+      this.questions.forEach((q) => {
+        if (q.givenAnswer == q.answer) {
+          this.correctAnswers++;
+          let marksSingle =
+            this.questions[0].quiz.maxMarks / this.questions.length;
+          this.marksGot += marksSingle;
+        }
+        if(q.givenAnswer.trim()!=''){
+          this.attempted++;
+        }
+      });
+      console.log('correct answer' + this.correctAnswers);
+      console.log(this.marksGot);
+      console.log(this.attempted);
 
-
-}
+    }
+  }
 }

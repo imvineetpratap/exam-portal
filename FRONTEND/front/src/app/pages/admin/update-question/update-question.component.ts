@@ -24,7 +24,9 @@ export class UpdateQuestionComponent implements OnInit {
 
   updateQuestionForm() {
     //calling server for adding quiz
+    // console.log(this.question);
     this._questionService.updateQuestionToQuiz(this.question).subscribe(
+
       (data) => {
         Swal.fire('Sucsess!!', 'Question updated sucessfully', 'success').then(
           (e) => {
@@ -52,11 +54,13 @@ export class UpdateQuestionComponent implements OnInit {
   ngOnInit(): void {
     this.quizTitle = this._route.snapshot.params['quizTitle'];
     this.questionIdhere = this._route.snapshot.params['questionId'];
+   //fetching question on the basis of its id
     this._questionService
       .getSingleQuestionofQuiz(this.questionIdhere)
       .subscribe(
         (data) => {
           console.log(data);
+          //setting up data recived from backend and set quesid too so that we can update it
           this.question = data;
         },
         (error) => {

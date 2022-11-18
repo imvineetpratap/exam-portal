@@ -1,4 +1,4 @@
-<div class="bootstrap-wrapper">
+<div class="bootstrap-wrapper" *ngIf="!isSubmit">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-2">
@@ -8,7 +8,7 @@
       <div class="col-md-8">
         <!-- questions -->
         <ng-container *ngIf="questions">
-          <mat-card>
+          <mat-card class="mt-20">
             <mat-card-header class="mt-20">
               <mat-card-title
                 >On Going Quiz
@@ -61,8 +61,51 @@
       </div>
       <div class="col-md-2">
         <!-- progress -->
-        <h3>progress</h3>
+
+<mat-card class="text-center mt-20" >
+  <mat-card-header>
+<mat-card-title>
+  Progress
+</mat-card-title>
+<mat-card-subtitle>quiz will automatically closed after <b> {{ getFormattedTime()}}</b></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content >
+      <mat-spinner style="margin: auto;"
+      color="accent"
+      mode="determinate"
+[value]="(timer/(this.questions.length*2*60))*100"
+      ></mat-spinner>
+    </mat-card-content>
+
+
+</mat-card>
+
       </div>
     </div>
   </div>
 </div>
+
+
+<!-- show result -->
+<div class="bootstrap-wrapper" *ngIf="isSubmit">
+
+    <div class="row">
+
+      <div class="col-md-6 offset-md-3">
+        <mat-card>
+          <mat-card-header>
+            Quiz Result
+          </mat-card-header>
+          <mat-card-content class="text-center">
+           <h1> Marks Got: {{marksGot}}</h1>
+           <h1>Correct Answers: {{correctAnswers}}</h1>
+           <h1>Questions atttempted: {{attempted}}</h1>
+          </mat-card-content>
+          <mat-card-actions  class="text-center">
+            <button mat-raised-button color="primary" >print</button>
+            <button mat-raised-button color="primary" [routerLink]="'/user-dashboard/loadquiz/0'" >Home</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      </div>
+      </div>

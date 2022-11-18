@@ -40,6 +40,7 @@ import { CategoriesComponent } from './pages/user/categories/categories.componen
 import { LoadQuizComponent } from './pages/user/load-quiz/load-quiz.component';
 import { PreQuizInstructionsComponent } from './pages/user/pre-quiz-instructions/pre-quiz-instructions.component';
 import { AllquizzesComponent } from './pages/user/allquizzes/allquizzes.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +84,8 @@ import { AllquizzesComponent } from './pages/user/allquizzes/allquizzes.componen
     MatTableModule,
     MatSlideToggleModule,
     MatSelectModule,
-    CKEditorModule
+    CKEditorModule,
+    MatProgressSpinnerModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
