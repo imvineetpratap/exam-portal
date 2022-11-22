@@ -1,10 +1,44 @@
-<app-navbar></app-navbar>
+<ngx-ui-loader
+  fgsColor="#3f51b5"
+  pbColor="#3f51b5"
+  text="Please Wait..."
+textColor="#3f51b5"
+(pbThickness)="8"
+></ngx-ui-loader>
+
+
+<div ngxUiLoaderBlurred (blur)="6">
+  <app-navbar></app-navbar>
+
+<!-- dynamic content -->
 <router-outlet></router-outlet>
+  <!-- This page content will be blurred/frosted when foreground loader is showed -->
+</div>
+
+
+<!-- <img src="../../../assets/examportallogo.png" style="width:20%;height:20%;"
+alt="examportal logo"> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- <span>{{ title }} app is running!</span>
 
 
-<div class="bootstrap-wrapper"> 
+<div class="bootstrap-wrapper">
 <div class="container">
 
   <h1>Welcome to Examportal!!!!</h1>
@@ -21,4 +55,3 @@
 </div>
 </div>
 <button mat-raised-button color="primary">Click me</button> -->
-

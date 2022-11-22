@@ -11,7 +11,7 @@ import { LocationStrategy } from '@angular/common';
 })
 export class AllquizzesComponent implements OnInit {
   qidhere;
-  questions;
+  questions:any;
   marksGot = 0;
   correctAnswers = 0;
   attempted = 0;
@@ -26,18 +26,18 @@ export class AllquizzesComponent implements OnInit {
   ngOnInit(): void {
     this.preventBackButton();
     this.qidhere = this._router.snapshot.params['qid'];
-    //  console.log(this.qidhere);
     this.loadQuestions();
   }
   loadQuestions() {
     this._question.getQuestionsofQuizForTest(this.qidhere).subscribe(
       (data) => {
-        //  console.log(data);
         this.questions = data;
+        console.log(this.questions);
+
         this.timer=this.questions.length*2*60;
-        this.questions.forEach((q) => {
-          q['givenAnswer'] = '';
-        });
+        // this.questions.forEach((q) => {
+        //   q['givenAnswer'] = '';
+        // });
         this.startTimer();
       },
       (error) => {
@@ -91,23 +91,39 @@ export class AllquizzesComponent implements OnInit {
 
   evalQuiz(){
     {
-      this.isSubmit=true;
-      //calculation
-      this.questions.forEach((q) => {
-        if (q.givenAnswer == q.answer) {
-          this.correctAnswers++;
-          let marksSingle =
-            this.questions[0].quiz.maxMarks / this.questions.length;
-          this.marksGot += marksSingle;
-        }
-        if(q.givenAnswer.trim()!=''){
-          this.attempted++;
-        }
-      });
-      console.log('correct answer' + this.correctAnswers);
-      console.log(this.marksGot);
-      console.log(this.attempted);
 
+      // //calculation
+      // this.questions.forEach((q) => {
+      //   if (q.givenAnswer == q.answer) {
+      //     this.correctAnswers++;
+      //     let marksSingle =
+      //       this.questions[0].quiz.maxMarks / this.questions.length;
+      //     this.marksGot += marksSingle;
+      //   }
+      //   if(q.givenAnswer.trim()!=''){
+      //     this.attempted++;
+      //   }
+      // });
+
+
+      //call to server to server to evaluate quiz
+this._question.evalQuiz(this.questions).subscribe(
+  (data:any)=>{
+    // console.log(data);
+this.marksGot=parseFloat(Number(data.marksGot).toFixed(2)) ;
+this.correctAnswers=data.correctanswers;
+this.attempted=data.Attempted;
+// console.log(this.attempted);
+this.isSubmit=true;
+  },
+  (error)=>{
+    console.log(error);
+
+  }
+)
     }
+  }
+  printPage(){
+    window.print();
   }
 }

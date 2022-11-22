@@ -41,6 +41,7 @@ import { LoadQuizComponent } from './pages/user/load-quiz/load-quiz.component';
 import { PreQuizInstructionsComponent } from './pages/user/pre-quiz-instructions/pre-quiz-instructions.component';
 import { AllquizzesComponent } from './pages/user/allquizzes/allquizzes.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { NgxUiLoaderModule,NgxUiLoaderHttpModule } from "ngx-ui-loader";
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,7 +86,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatSlideToggleModule,
     MatSelectModule,
     CKEditorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgxUiLoaderModule,
+    NgxUiLoaderHttpModule.forRoot({
+       showForeground: true
+       })
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

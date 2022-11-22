@@ -43,13 +43,18 @@ public class QuestionController {
         //method 2
         Quiz quiz = this.quizService.getQuiz(qid);
         Set<Question> questions = quiz.getQuestions();
-        List list = new ArrayList(questions);
+        List<Question> list = new ArrayList(questions);
         //checking max number of questions if more than that than returning a sublist
 //       System.out.println("total number of questions"+quiz.getNumberOfQuestion());
        if (list.size() > Integer.parseInt(quiz.getNumberOfQuestion()))
        {
            list = list.subList(0, Integer.parseInt(quiz.getNumberOfQuestion() + 1));
        }
+       list.forEach(
+    		   
+    		   (q)->{q.setAnswer("");}
+    		   
+    		   );
         Collections.shuffle(list);
         return ResponseEntity.ok(list);
     }
@@ -77,4 +82,48 @@ public class QuestionController {
     public void delete(@PathVariable("quesId") Long quesId){
 this.questionService.deleteQuestion(quesId);
     }
+    
+    
+    
+    //evaluate quiz
+    @PostMapping("/eval-quiz")
+    
+    public ResponseEntity<?> evalQuiz(@RequestBody List<Question> questions)
+    {
+   System.out.println(questions);
+Double marksGot = 0.0;
+ int  correctAnswers = 0;
+ int attempted = 0;
+   for(Question q:questions){
+//	   System.out.println(q.getGivenAnswer());
+	   
+	   //single questions
+//	   q.getQuesId();
+	  Question question= this.questionService.getQuestionbyId(q.getQuesId());
+//	  System.out.println(question.getAnswer());
+	   if(question.getAnswer().equals(q.getGivenAnswer()))
+	   {
+		   //correct
+		   correctAnswers++;
+		   
+		  double marksSingle =Double.parseDouble(questions.get(0).getQuiz().getMaxMarks())/questions.size();
+//				  questions[0].quiz.maxMarks / this.questions.length;
+			           marksGot += marksSingle;
+//				     
+	   }
+	   if(q.getGivenAnswer()!=null) {
+		   attempted++;
+	   }
+	   else {
+		   //incorrect
+	   }
+   };
+   
+   
+   Map<String, Object> map=Map.of("marksGot",marksGot,"correctanswers",correctAnswers,"Attempted",attempted);
+   System.out.println(map);
+   return ResponseEntity.ok(map);
+    }
+    
+    
 }

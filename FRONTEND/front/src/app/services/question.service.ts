@@ -34,4 +34,10 @@ return this._http.delete(`${baseUrl}/question/${quesId}`)
   public getSingleQuestionofQuiz(quesId){
     return this._http.get(`${baseUrl}/question/${quesId}`)
       }
+
+      //evaluating quiz
+      public evalQuiz(questions)
+      {
+        return this._http.post(`${baseUrl}/question/eval-quiz`,questions)
+      }
 }
